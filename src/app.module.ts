@@ -1,9 +1,8 @@
 import {Module} from '@nestjs/common';
-import {HermesGateway} from './hermes/hermes.gateway';
+import {DataModule} from './data';
+import {HermesModule} from './hermes';
 
 @Module({
-  imports: [],
-  controllers: [],
-  providers: [HermesGateway],
+  imports: [HermesModule, DataModule],
 })
 export class AppModule {}
