@@ -1,5 +1,6 @@
-import {Body, Param, Get, Post, Put, Delete, Controller} from '@nestjs/common';
+import {Body, Param, Get, Post, Put, Delete, Controller, Query} from '@nestjs/common';
 import {HermesGateway} from '../../hermes';
+import {SocketEvents} from '../../Types';
 import {DataEvents} from '../Types';
 
 @Controller('data')
@@ -10,9 +11,18 @@ export class DataController {
     this.gateway = gateway;
   }
 
-  @Get(':source/:entity')
-  async findAll(@Param('source') source: string, @Param('entity') entity: string): Promise<string> {
-    const response = await this.gateway.send<string>(DataEvents.FindAll, {source, entity});
+  @Get(':source/:resource')
+  async find(
+    @Param('source') source: string,
+    @Param('resource') resource: string,
+    @Query() query: string,
+  ): Promise<string> {
+    const response = await this.gateway.send<string>(SocketEvents.Data, {
+      type: DataEvents.Find,
+      source,
+      resource,
+      query,
+    });
 
     return response;
   }

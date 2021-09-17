@@ -1,4 +1,4 @@
 export enum DataEvents {
-  FindAll = 'FindAll',
+  Find = 'Find',
   FindOne = 'FindOne',
 }
