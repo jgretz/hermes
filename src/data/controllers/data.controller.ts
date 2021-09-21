@@ -27,9 +27,21 @@ export class DataController {
     return response;
   }
 
-  // @Get(':id')
-  // @Bind(Param('data'), Param('id'))
-  // async findOne(id: number) {}
+  @Get(':source/:resource/:id')
+  async findOne(
+    @Param('source') source: string,
+    @Param('resource') resource: string,
+    @Param('id') id: number,
+  ) {
+    const response = await this.gateway.send<string>(SocketEvents.Data, {
+      type: DataEvents.FindOne,
+      source,
+      resource,
+      id,
+    });
+
+    return response;
+  }
 
   // @Post()
   // @Bind(Body())
