@@ -43,15 +43,53 @@ export class DataController {
     return response;
   }
 
-  // @Post()
-  // @Bind(Body())
-  // async create(body) {}
+  @Post(':source/:resource')
+  async create(
+    @Param('source') source: string,
+    @Param('resource') resource: string,
+    @Body() body: string,
+  ) {
+    const response = await this.gateway.send<string>(SocketEvents.Data, {
+      type: DataEvents.Create,
+      source,
+      resource,
+      body,
+    });
 
-  // @Put(':id')
-  // @Bind(Param('id'), Body())
-  // async update(id, body) {}
+    return response;
+  }
 
-  // @Delete(':id')
-  // @Bind(Param('id'))
-  // async remove(id) {}
+  @Put(':source/:resource/:id')
+  async update(
+    @Param('source') source: string,
+    @Param('resource') resource: string,
+    @Param('id') id: number,
+    @Body() body: string,
+  ) {
+    const response = await this.gateway.send<string>(SocketEvents.Data, {
+      type: DataEvents.Update,
+      source,
+      resource,
+      id,
+      body,
+    });
+
+    return response;
+  }
+
+  @Delete(':source/:resource/:id')
+  async remove(
+    @Param('source') source: string,
+    @Param('resource') resource: string,
+    @Param('id') id: number,
+  ) {
+    const response = await this.gateway.send<string>(SocketEvents.Data, {
+      type: DataEvents.Delete,
+      source,
+      resource,
+      id,
+    });
+
+    return response;
+  }
 }
