@@ -1,8 +1,8 @@
 import {Module} from '@nestjs/common';
-import {DataModule} from './data';
-import {HermesModule} from './hermes';
+import {EndpointsModule} from './endpoints';
+import {HermesModule} from './gateway';
 
 @Module({
-  imports: [HermesModule, DataModule],
+  imports: [HermesModule, EndpointsModule],
 })
 export class AppModule {}

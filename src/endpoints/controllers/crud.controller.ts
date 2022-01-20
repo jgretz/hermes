@@ -1,10 +1,10 @@
 import {Body, Param, Get, Post, Put, Delete, Controller, Query} from '@nestjs/common';
-import {HermesGateway} from '../../hermes';
-import {SocketEvents} from '../../Types';
-import {DataEvents} from '../Types';
+import {DataEvents} from '@jgretz/igor-data';
+import {HermesGateway} from '../../gateway';
+import {CRUD} from '../../Types';
 
-@Controller('data')
-export class DataController {
+@Controller('crud')
+export class CrudController {
   gateway: HermesGateway;
 
   constructor(gateway: HermesGateway) {
@@ -17,7 +17,7 @@ export class DataController {
     @Param('resource') resource: string,
     @Query() query: string,
   ): Promise<string> {
-    const response = await this.gateway.send<string>(SocketEvents.Data, {
+    const response = await this.gateway.send<string>(CRUD, {
       type: DataEvents.Find,
       source,
       resource,
@@ -33,7 +33,7 @@ export class DataController {
     @Param('resource') resource: string,
     @Param('id') id: number,
   ) {
-    const response = await this.gateway.send<string>(SocketEvents.Data, {
+    const response = await this.gateway.send<string>(CRUD, {
       type: DataEvents.FindOne,
       source,
       resource,
@@ -49,7 +49,7 @@ export class DataController {
     @Param('resource') resource: string,
     @Body() body: string,
   ) {
-    const response = await this.gateway.send<string>(SocketEvents.Data, {
+    const response = await this.gateway.send<string>(CRUD, {
       type: DataEvents.Create,
       source,
       resource,
@@ -66,7 +66,7 @@ export class DataController {
     @Param('id') id: number,
     @Body() body: string,
   ) {
-    const response = await this.gateway.send<string>(SocketEvents.Data, {
+    const response = await this.gateway.send<string>(CRUD, {
       type: DataEvents.Update,
       source,
       resource,
@@ -83,7 +83,7 @@ export class DataController {
     @Param('resource') resource: string,
     @Param('id') id: number,
   ) {
-    const response = await this.gateway.send<string>(SocketEvents.Data, {
+    const response = await this.gateway.send<string>(CRUD, {
       type: DataEvents.Delete,
       source,
       resource,

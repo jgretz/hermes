@@ -1,6 +1,6 @@
 import {Module} from '@nestjs/common';
 
-import {HermesGateway} from './gateways';
+import {HermesGateway} from './hermes.gateway';
 
 @Module({
   imports: [],
