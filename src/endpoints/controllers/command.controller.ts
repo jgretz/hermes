@@ -1,6 +1,8 @@
-import {Body, Param, Post, Controller} from '@nestjs/common';
+import {Response} from 'express';
+import {Body, Param, Post, Controller, Res} from '@nestjs/common';
+import {COMMAND} from '@jgretz/igor-shared';
 import {HermesGateway} from '../../gateway';
-import {COMMAND} from '../../Types';
+import {prepareResponse} from '../services';
 
 @Controller('command')
 export class CommandController {
@@ -12,16 +14,17 @@ export class CommandController {
 
   @Post(':command/:target')
   async create(
+    @Res({passthrough: true}) res: Response,
     @Param('command') command: string,
     @Param('target') target: string,
     @Body() body: string,
   ) {
-    const response = await this.gateway.send<string>(COMMAND, {
+    const response = await this.gateway.send<unknown>(COMMAND, {
       command,
       target,
       body,
     });
 
-    return response;
+    return prepareResponse(res, response);
   }
 }

@@ -1,7 +1,7 @@
 import {WebSocketGateway, OnGatewayConnection, OnGatewayDisconnect} from '@nestjs/websockets';
 import {Socket} from 'socket.io';
 import {DefaultEventsMap} from 'socket.io/dist/typed-events';
-import {Events} from '../Types';
+import {Events} from '@jgretz/igor-shared';
 
 @WebSocketGateway()
 export class HermesGateway implements OnGatewayConnection<Socket>, OnGatewayDisconnect<Socket> {
