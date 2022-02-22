@@ -1,11 +1,25 @@
 import {Response} from 'express';
-import {Body, Param, Get, Post, Put, Delete, Controller, Query, Res} from '@nestjs/common';
+import {
+  Body,
+  Param,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Controller,
+  Query,
+  Res,
+  UseInterceptors,
+} from '@nestjs/common';
 import {CRUD} from '@jgretz/igor-shared';
 import {CrudTypes} from '@jgretz/igor-data-microservice';
+
 import {HermesGateway} from '../../gateway';
 import {prepareResponse} from '../services';
+import {CrudCacheInterceptor} from '../interceptors';
 
 @Controller('crud')
+@UseInterceptors(CrudCacheInterceptor)
 export class CrudController {
   gateway: HermesGateway;
 
