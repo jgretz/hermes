@@ -6,7 +6,7 @@ import {
   Inject,
   CACHE_MANAGER,
 } from '@nestjs/common';
-import {Observable, of} from 'rxjs';
+import {of} from 'rxjs';
 import {Cache} from 'cache-manager';
 import {tap} from 'rxjs/operators';
 
